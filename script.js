@@ -3,6 +3,7 @@
 console.log('js linked')
 let noteData
 
+const apiUrl = 'http://localhost:3000/notes/'
 function print (value) {
   console.log(value)
   return value
@@ -13,7 +14,7 @@ function q (selector) {
 }
 
 function getAllNotes () {
-  return fetch('http://localhost:3000/notes/',
+  return fetch(apiUrl,
     { method: 'GET' })
     .then(response => response.json())
     // .then(data => {
@@ -39,7 +40,7 @@ function createNoteHTML (note) {
 }
 
 function postNewNote (noteText) {
-  return fetch('http://localhost:3000/notes/', {
+  return fetch(apiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ note: noteText, done: false, created: moment().format() })
@@ -72,9 +73,12 @@ q('#new-note-form').addEventListener('submit', event => {
 q('#notes').addEventListener('click', event => {
   if (event.target.matches('.delete')) {
     print('delete ' + event.target.parentElement.dataset.noteId)
-    fetch ('http://localhost:3000/notes/'), 
-    { method: 'DELETE' }
+    return fetch ((apiUrl + event.target.parentElement.dataset.noteId),
+    { method: 'DELETE' })
 
   }
 })
 
+// function deleteNote (item, url) {
+  
+// }
