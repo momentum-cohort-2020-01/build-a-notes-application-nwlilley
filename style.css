@@ -1,0 +1,34 @@
+
+* {
+  margin 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222222;
+
+}
+
+.form {
+}
+
+.form label,
+.form input {
+  display: block;
+}
+
+.note-text {
+  width: 100%;
+  font-size: 1.5rem;
+}
+
+.button {
+  color: white;
+  background-color: rgb(9, 126, 204);
+  font-size: 1rem;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
