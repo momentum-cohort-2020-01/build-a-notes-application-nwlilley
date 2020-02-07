@@ -17,17 +17,10 @@ function getAllNotes () {
   return fetch(apiUrl,
     { method: 'GET' })
     .then(response => response.json())
-    // .then(data => {
-    //   print(data)
-    //   noteData = data
-    //   print(noteData[0].title)
-    //   print(noteData[0].id)
-    //   print(noteData[0].body)
-    // })
 }
 
 function createNotesHTML (notes) {
-  let notesStr = '<ul> id= "notes-list">'
+  let notesStr = '<ul id= "notes-list">'
   for (const note of notes) {
     notesStr += createNoteHTML(note)
   }
@@ -35,15 +28,19 @@ function createNotesHTML (notes) {
   return notesStr
 }
 
+// function createNoteHTML (note) {
+//   return `<li data-note-id="${note.id}">${note.note}<br>Created on: ${note.created}<button class='delete'>Delete</button> <button class='edit'>Edit</button> </li>`
+// }
+
 function createNoteHTML (note) {
-  return `<li data-note-id="${note.id}">${note.note}<button class='delete'>Delete</button></li>`
+  return `<li data-note-id="${note.id}">${note.note}<div class='date'>Created on: ${note.created}</div><button class='delete'>Delete</button> <button class='edit'>Edit</button> </li>`
 }
 
 function postNewNote (noteText) {
   return fetch(apiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ note: noteText, done: false, created: moment().format() })
+    body: JSON.stringify({ note: noteText, done: false, created: moment().format('ddd, MMM do h:mm A') })
   })
     .then(response => response.json())
 }
@@ -78,6 +75,7 @@ q('#notes').addEventListener('click', event => {
 
   }
 })
+
 
 // function deleteNote (item, url) {
   
