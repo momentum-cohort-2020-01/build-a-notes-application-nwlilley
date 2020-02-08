@@ -33,7 +33,7 @@ function createNotesHTML (notes) {
 // }
 
 function createNoteHTML (note) {
-  return `<li data-note-id="${note.id}">${note.note}<div class='date'>Created on: ${note.created}</div><button class='delete'>Delete</button> <button class='edit'>Edit</button> </li>`
+  return `<li data-note-id="${note.id}">${note.note}<div class='date'>Created on ${note.created}</div><button class='delete'>Delete</button> <button class='edit'>Edit</button></li>`
 }
 
 function postNewNote (noteText) {

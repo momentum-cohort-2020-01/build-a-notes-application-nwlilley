@@ -23,13 +23,14 @@ body {
 }
 
 .date {
-  font-size: .75rem;
+  font-size: .9rem;
   color: gray;
-  margin-top: 8px;
+  margin: 8px 0;
 }
 .note-text {
   width: 100%;
-  font-size: 1.5rem;
+  height: 6rem;
+  font-size: 1rem;
 }
 
 .button {
@@ -41,11 +42,19 @@ body {
   border-radius: 10px;
 }
 
-.buttons {
-  
+.delete,
+.edit {
+  color: white;
+  background-color: rgb(9, 126, 204);
+  font-size: .8rem;
+  padding: 2px 5px;
+  border-radius: 5px;
 }
+
 #notes-list li {
   list-style: none;
   font-size: 1.25rem;
-  margin: 1rem 0;
+  /* margin: 2rem 0; */
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(179, 173, 173, 0.863);
 }
