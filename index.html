@@ -9,23 +9,26 @@
  
   <script src="moment.min.js" defer></script>
   <script src='script.js' defer></script>
-  <title>Notes</title>
 </head>
 <body>
-  <main class='main'>
-    <h1 class='title'>Notes</h1>
+  <div class='container'>
+    <header class='header'>
+      <h1 class='title'>Notes</h1>
+    </header>
+    <main class='main'>
+      <form id='new-note-form' class='form'>
+        <!-- <input type='text' id='title-text' class='title-text' placeholder='Enter note title' required> -->
+        <!-- <label for='note-text'>Create a note, stupid</label> -->
+        <textarea maxlength='2000' type='text' id='note-text' class= 'note-text' placeholder="Enter text" required ></textarea>
 
-    <form id='new-note-form' class='form'>
-      <!-- <label for='note-text'>Create a note, stupid</label> -->
-      <textarea type='text' id='note-text' class= 'note-text' placeholder="Enter text here..." required></textarea>
+        <div>
+          <button type='submit' class='button'>Add Note</button>
+        </div>
 
-      <div>
-        <button type='submit' class='button'>Add Note</button>
-      </div>
-
-    </form>
-    <section id='notes' class='notes'></section>
-  </main>
+      </form>
+      <section id='notes' class='notes'></section>
+    </main>
+  </div>
   
 </body>
 </html>

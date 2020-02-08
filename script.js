@@ -28,12 +28,8 @@ function createNotesHTML (notes) {
   return notesStr
 }
 
-// function createNoteHTML (note) {
-//   return `<li data-note-id="${note.id}">${note.note}<br>Created on: ${note.created}<button class='delete'>Delete</button> <button class='edit'>Edit</button> </li>`
-// }
-
 function createNoteHTML (note) {
-  return `<li data-note-id="${note.id}">${note.note}<div class='date'>Created on ${note.created}</div><button class='delete'>Delete</button> <button class='edit'>Edit</button></li>`
+  return `<li data-note-id="${note.id}"><p class='note-content'>${note.note}</p><div class='date'>Created on ${note.created}</div><button class='delete'>Delete</button> <button class='edit'>Edit</button></li>`
 }
 
 function postNewNote (noteText) {
@@ -70,13 +66,38 @@ q('#new-note-form').addEventListener('submit', event => {
 q('#notes').addEventListener('click', event => {
   if (event.target.matches('.delete')) {
     print('delete ' + event.target.parentElement.dataset.noteId)
-    return fetch ((apiUrl + event.target.parentElement.dataset.noteId),
-    { method: 'DELETE' })
-
+    return fetch((apiUrl + event.target.parentElement.dataset.noteId),
+      { method: 'DELETE' })
   }
 })
 
+function addSubmitEditButton (note) {
+  const newEditButton = document.createElement('button')
+  const editButton = note.querySelector('.edit')
+  newEditButton.classList.add('new-edit-button')
+  newEditButton.innerText = 'Submit Edit'
+  editButton.parentNode.replaceChild(newEditButton, editButton)
+}
+q('#notes').addEventListener('click', event => {
+  // event.preventDefault()
+  if (event.target.matches('.edit')) {
+    const noteIndex = event.target.parentElement.dataset.noteId
 
-// function deleteNote (item, url) {
-  
-// }
+    print('edit ' + noteIndex)
+    const listDiv = event.target.parentElement
+    print(listDiv) 
+    const noteField = event.target.parentElement.querySelector('p')
+    const editTextField = document.createElement('textarea')
+    editTextField.textContent = noteField.textContent
+    editTextField.classList.add('edit-text-field')
+    noteField.parentNode.replaceChild(editTextField, noteField)
+    addSubmitEditButton (listDiv)
+
+    return fetch ((apiUrl + noteIndex),
+    {method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ note: noteTextEdit, done: false, Edited: moment().format('ddd, MMM do h:mm A') })
+  })
+    .then(response => response.json())
+  }
+})

@@ -1,6 +1,6 @@
 
 * {
-  margin 0;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -10,15 +10,35 @@ body {
   color: #222222;
 }
 
+.container {
+  width: 80%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.header {
+  background-color: rgb(9, 126, 204);
+  margin: 2rem auto;
+  width: 90%;
+  border-radius: 20px;
+}
 .main {
-  margin: 2rem;
+  margin: 0 auto;
+  width: 85%;
 }
 
+.title {
+  padding: 3rem 2rem;
+  color: white;
+  /* text-align: center; */
+
+
+}
 .form {
 }
 
 .form label,
-.form input {
+.form input
+.form textarea {
   display: block;
 }
 
@@ -27,10 +47,16 @@ body {
   color: gray;
   margin: 8px 0;
 }
+
+.title-text{
+  width: 100%;
+  font-size: 1rem;
+}
 .note-text {
   width: 100%;
   height: 6rem;
   font-size: 1rem;
+  
 }
 
 .button {
@@ -43,12 +69,17 @@ body {
 }
 
 .delete,
-.edit {
+.edit,
+.new-edit-button {
   color: white;
   background-color: rgb(9, 126, 204);
   font-size: .8rem;
   padding: 2px 5px;
   border-radius: 5px;
+}
+
+.edit-text-field {
+  width: 100%;
 }
 
 #notes-list li {
