@@ -69,13 +69,21 @@ body {
 }
 
 .delete,
-.edit,
-.new-edit-button {
+.edit
+{
   color: white;
   background-color: rgb(9, 126, 204);
   font-size: .8rem;
   padding: 2px 5px;
   border-radius: 5px;
+}
+
+.submit-edit {
+  color: rgb(9, 126, 204);
+  font-size: .8rem;
+  padding: 2px 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(9, 126, 204);
 }
 
 .edit-text-field {

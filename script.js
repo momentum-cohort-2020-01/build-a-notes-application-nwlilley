@@ -41,6 +41,10 @@ function postNewNote (noteText) {
     .then(response => response.json())
 }
 
+function patchEdit (editText){
+
+}
+
 function renderNotesList (notes) {
   const notesHTML = createNotesHTML(notes)
   const notesSection = q('#notes')
@@ -72,12 +76,22 @@ q('#notes').addEventListener('click', event => {
 })
 
 function addSubmitEditButton (note) {
-  const newEditButton = document.createElement('button')
+  const submitEditButton = document.createElement('button')
   const editButton = note.querySelector('.edit')
-  newEditButton.classList.add('new-edit-button')
-  newEditButton.innerText = 'Submit Edit'
-  editButton.parentNode.replaceChild(newEditButton, editButton)
+  submitEditButton.classList.add('submit-edit')
+  submitEditButton.innerText = 'Submit Edit'
+  editButton.parentNode.replaceChild(submitEditButton, editButton)
 }
+
+function replaceEditButton (note) {
+  const newEditButton = document.createElement('button')
+  const submitEditButton = note.querySelector('.submit-edit')
+  newEditButton.classList.add('edit')
+  newEditButton.innerText = 'Edit'
+
+  submitEditButton.parentNode.replaceChild(newEditButton, submitEditButton)
+}
+
 q('#notes').addEventListener('click', event => {
   // event.preventDefault()
   if (event.target.matches('.edit')) {
@@ -92,12 +106,24 @@ q('#notes').addEventListener('click', event => {
     editTextField.classList.add('edit-text-field')
     noteField.parentNode.replaceChild(editTextField, noteField)
     addSubmitEditButton (listDiv)
-
-    return fetch ((apiUrl + noteIndex),
-    {method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ note: noteTextEdit, done: false, Edited: moment().format('ddd, MMM do h:mm A') })
-  })
-    .then(response => response.json())
+    
+    q('#notes').addEventListener('click', event => {
+      // event.preventDefault()
+      if (event.target.matches('.submit-edit')) {
+        // print(editTextField)
+        // print(editTextField.textContent)
+        const newEditContent = editTextField.value
+        noteField.textContent = newEditContent
+        editTextField.parentNode.replaceChild(noteField, editTextField)
+        print(listDiv)
+        replaceEditButton(listDiv)
+        return fetch ((apiUrl + noteIndex),
+        {method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ note: newEditContent, done: false, Edited: moment().format('ddd, MMM do h:mm A') })
+      })
+        .then(response => response.json())
+      }
+    })
   }
 })
