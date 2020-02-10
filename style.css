@@ -7,7 +7,7 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  color: #222222;
+  color: #222;
 }
 
 .container {
@@ -15,8 +15,19 @@ body {
   max-width: 700px;
   margin: 0 auto;
 }
+
+.header,
+.button,
+.delete,
+.edit {
+  background-color: rgb(28, 138, 228);
+  /* background-image: url('https://i.pinimg.com/originals/f1/bd/cc/f1bdcc2831308fa968f7ad309b9dfd11.png'); */
+  cursor: pointer;
+}
+
+
+
 .header {
-  background-color: rgb(9, 126, 204);
   margin: 2rem auto;
   width: 90%;
   border-radius: 20px;
@@ -36,6 +47,11 @@ body {
 .form {
 }
 
+#notes-list {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .form label,
 .form input
 .form textarea {
@@ -48,6 +64,11 @@ body {
   margin: 8px 0;
 }
 
+.edited {
+  font-size: .7rem;
+  color: gray;
+
+}
 .title-text{
   width: 100%;
   font-size: 1rem;
@@ -61,7 +82,6 @@ body {
 
 .button {
   color: white;
-  background-color: rgb(9, 126, 204);
   font-size: 1rem;
   padding: 10px;
   margin: 10px 0;
@@ -72,22 +92,27 @@ body {
 .edit
 {
   color: white;
-  background-color: rgb(9, 126, 204);
   font-size: .8rem;
-  padding: 2px 5px;
-  border-radius: 5px;
+  padding: 5px 8px;
+  border-radius: 7px;
 }
 
 .submit-edit {
-  color: rgb(9, 126, 204);
+  color: rgb(28, 138, 228);
   font-size: .8rem;
-  padding: 2px 5px;
+  padding: 5px 8px;
   border-radius: 5px;
-  border: 1px solid rgb(9, 126, 204);
+  border: 1px solid rgb(28, 138, 228);
+  cursor: pointer;
 }
+
+
 
 .edit-text-field {
   width: 100%;
+  font-size: 1rem;
+  height: 3rem;
+
 }
 
 #notes-list li {

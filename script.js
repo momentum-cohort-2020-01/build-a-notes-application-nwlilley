@@ -1,7 +1,3 @@
-// const moment = require('moment')
-
-console.log('js linked')
-let noteData
 
 const apiUrl = 'http://localhost:3000/notes/'
 function print (value) {
@@ -36,13 +32,9 @@ function postNewNote (noteText) {
   return fetch(apiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ note: noteText, done: false, created: moment().format('ddd, MMM do h:mm A') })
+    body: JSON.stringify({ note: noteText, done: false, created: moment().format('ddd, MMM Do h:mm A') })
   })
     .then(response => response.json())
-}
-
-function patchEdit (editText){
-
 }
 
 function renderNotesList (notes) {
@@ -51,6 +43,7 @@ function renderNotesList (notes) {
   notesSection.innerHTML = notesHTML
 }
 
+// WHAT IS THIS DOING?
 function renderNewNote (note) {
   const noteHTML = createNoteHTML(note)
   const notesList = q('#notes-list')
@@ -60,7 +53,7 @@ function renderNewNote (note) {
 getAllNotes().then(renderNotesList)
 
 q('#new-note-form').addEventListener('submit', event => {
-  event.preventDefault()
+  // event.preventDefault()
   const noteTextField = q('#note-text')
   const noteText = noteTextField.value
   noteTextField.value = ''
@@ -92,37 +85,53 @@ function replaceEditButton (note) {
   submitEditButton.parentNode.replaceChild(newEditButton, submitEditButton)
 }
 
+// function addEditDate () {
+//   const editDateField = document.createElement('div')
+//   const createdDateField = event.target.parentElement.querySelector('.date')
+//   editDateField.classList.add('edited')
+//   editDateField.innerHTML = `<em>Edited on ${moment().format('ddd, MMM Do h:mm A')}</em>`
+//   createdDateField.appendChild(editDateField)
+// }
+
 q('#notes').addEventListener('click', event => {
-  // event.preventDefault()
   if (event.target.matches('.edit')) {
+    event.preventDefault()
     const noteIndex = event.target.parentElement.dataset.noteId
 
     print('edit ' + noteIndex)
     const listDiv = event.target.parentElement
-    print(listDiv) 
+    print(listDiv)
     const noteField = event.target.parentElement.querySelector('p')
     const editTextField = document.createElement('textarea')
     editTextField.textContent = noteField.textContent
     editTextField.classList.add('edit-text-field')
     noteField.parentNode.replaceChild(editTextField, noteField)
-    addSubmitEditButton (listDiv)
-    
+    addSubmitEditButton(listDiv)
+    // SUBMIT EDIT
     q('#notes').addEventListener('click', event => {
-      // event.preventDefault()
+      event.preventDefault()
       if (event.target.matches('.submit-edit')) {
-        // print(editTextField)
-        // print(editTextField.textContent)
         const newEditContent = editTextField.value
         noteField.textContent = newEditContent
         editTextField.parentNode.replaceChild(noteField, editTextField)
-        print(listDiv)
         replaceEditButton(listDiv)
-        return fetch ((apiUrl + noteIndex),
-        {method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ note: newEditContent, done: false, Edited: moment().format('ddd, MMM do h:mm A') })
-      })
-        .then(response => response.json())
+        const editDateField = document.createElement('div')
+        const createdDateField = listDiv.querySelector('.date')
+        editDateField.classList.add('edited')
+        editDateField.innerHTML = `<em>Edited on ${moment().format('ddd, MMM Do h:mm A')}</em>`
+        createdDateField.appendChild(editDateField)
+        return fetch((apiUrl + noteIndex),
+          {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ note: newEditContent, done: false, edited: moment().format('ddd, MMM Do h:mm A') })
+          })
+          .then(response => response.json())
+          .then(function (data) {
+            print(data.edited)
+
+            print(noteIndex)
+          })
       }
     })
   }
